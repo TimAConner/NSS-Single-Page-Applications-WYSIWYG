@@ -36,3 +36,7 @@ Pseudo-Class Selector
 person:nth-child(even) {
     background-color: lightyellow;
 }
+
+person:nth-child(odd) {
+    background-color: lightblue;
+}
