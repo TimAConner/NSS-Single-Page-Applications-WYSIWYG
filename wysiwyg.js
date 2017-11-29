@@ -103,9 +103,12 @@ function createPerson(person){
 
     //When clicking on person, add border.
     personDOM.addEventListener("click", function(){
-       resetBorder();
+        resetBorder();
+        document.getElementById("text-input").focus();
         personDOM.setAttribute("style", "border: 1px dotted black;")
     });
+
+
 
 }
 
