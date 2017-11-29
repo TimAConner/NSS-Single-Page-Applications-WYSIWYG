@@ -2,7 +2,7 @@ let people = [
     {
         title: "Samurai",
         name: "Tomoe Gozen",
-        bio: "Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
+        bio: "1Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
         image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Tomoe-Gozen.jpg",
         lifespan: {
           birth: 1747,
@@ -12,7 +12,7 @@ let people = [
     {
         title: "Samurai",
         name: "Tomoe Gozen",
-        bio: "Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
+        bio: "2Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
         image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Tomoe-Gozen.jpg",
         lifespan: {
           birth: 1747,
@@ -22,7 +22,7 @@ let people = [
     {
         title: "Samurai",
         name: "Tomoe Gozen",
-        bio: "Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
+        bio: "3Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
         image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Tomoe-Gozen.jpg",
         lifespan: {
           birth: 1747,
@@ -32,7 +32,7 @@ let people = [
     {
         title: "Samurai",
         name: "Tomoe Gozen",
-        bio: "Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
+        bio: "4Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
         image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Tomoe-Gozen.jpg",
         lifespan: {
           birth: 1747,
@@ -110,14 +110,14 @@ function createPerson(person, indexValue){
         let textInputDOM = document.getElementById("text-input");
         textInputDOM.focus();
         
-        resetBorder();
-        textInputDOM.setAttribute("value", person.bio);
+        resetBorders();
+        textInputDOM.value = person.bio;
         personDOM.setAttribute("style", "border: 1px dotted black;")
     });
 
 }
 
-function resetBorder(){
+function resetBorders(){
     let personTags = document.getElementsByTagName("person");
     for(let i = 0; i < personTags.length; i ++){
         personTags[i].removeAttribute("style");
@@ -130,29 +130,40 @@ function createPeopleDOM(){
     });
 }
 
-let textInputDOM = document.getElementById("text-input");
+function addModifyTextHandler(){
+    let textInput = document.getElementById("text-input");
+    textInput.addEventListener("keydown", function(){
+        if(currentSelection !== null){
+            let personId = currentSelection.getAttribute("id");
+            let paraDOM = document.getElementById(`bio${personId}`);
+            people[personId].bio = textInput.value;
+            paraDOM.textContent = people[personId].bio;
+        }
+    });
+}
 
-textInputDOM.addEventListener("keydown", function(){
-    if(currentSelection !== null){
-        console.log(currentSelection);
-    }
-    let paraDOM = document.getElementById(`bio${currentSelection.getAttribute("id")}`);
-   
-    people[currentSelection.getAttribute("id")].bio = textInputDOM.value;
+function addDeleteTextHandler(){
+    let textInput = document.getElementById("text-input");
 
-    paraDOM.textContent = people[currentSelection.getAttribute("id")].bio;
-    //    paraDOM.textContent = textInputDOM.value;
+    textInput.addEventListener('keypress', function (e) {
+        if(currentSelection !== null){
+            let personId = currentSelection.getAttribute("id");
+            if (e.keyCode === 13) {
+                textInput.value = "";
+                textInput.blur();
+                resetSelection();
+                resetBorders();
+            }
+        }
+    }, false);
+}
 
-    // console.log(document.getElementById(`bio$[`));
-});
 
-document.getElementById("text-input").addEventListener('keypress', function (e) {
-    if (e.keyCode === 13) {
-        let paraDOM = document.getElementById(`bio${currentSelection.getAttribute("id")}`);
-        textInputDOM.value = "";    
-        people[currentSelection.getAttribute("id")].bio = "";
-        paraDOM.textContent = people[currentSelection.getAttribute("id")].bio;
-    }
-}, false);
+function resetSelection(){
+    currentSelection = null;
+}
+
 
 createPeopleDOM();
+addModifyTextHandler();
+addDeleteTextHandler();
