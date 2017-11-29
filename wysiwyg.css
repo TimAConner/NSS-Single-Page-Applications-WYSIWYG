@@ -21,6 +21,7 @@ main person img {
 }
 
 
+
 /***********
 ID Selector
 **********/
@@ -29,6 +30,13 @@ ID Selector
     flex-wrap: wrap;
 }
 
+/***********
+Class Selector
+**********/
+
+.text-input {
+    width: 50%;
+}
 
 /***********
 Pseudo-Class Selector

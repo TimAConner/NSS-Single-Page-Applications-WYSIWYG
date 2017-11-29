@@ -43,10 +43,11 @@ let people = [
 
 let currentSelection = null;
 
-function createPerson(person){
+function createPerson(person, indexValue){
     let output = document.getElementById("output");
     
     let personDOM = document.createElement("person");
+    personDOM.setAttribute("id", indexValue);
     
     //Create header dom
     let headerDOM = document.createElement("header");
@@ -72,6 +73,7 @@ function createPerson(person){
     //Create bio
     let bioDOM = document.createElement("p");
     let bioText = document.createTextNode(person.bio);
+    bioDOM.setAttribute("id", `bio${indexValue}`);
     bioDOM.appendChild(bioText);
 
     //Create image
@@ -101,14 +103,17 @@ function createPerson(person){
     output.appendChild(personDOM);
 
 
-    //When clicking on person, add border.
+    //When clicking on person, add border, focus on text area, and set text area valaue to bio ..
     personDOM.addEventListener("click", function(){
+        currentSelection = personDOM;
+
+        let textInputDOM = document.getElementById("text-input");
+        textInputDOM.focus();
+        
         resetBorder();
-        document.getElementById("text-input").focus();
+        textInputDOM.setAttribute("value", person.bio);
         personDOM.setAttribute("style", "border: 1px dotted black;")
     });
-
-
 
 }
 
@@ -120,9 +125,25 @@ function resetBorder(){
 }
 
 function createPeopleDOM(){
-    people.forEach(function(element){
-        createPerson(element);
+    people.forEach(function(element, i){
+        createPerson(element, i);
     });
 }
+
+let textInputDOM = document.getElementById("text-input");
+
+textInputDOM.addEventListener("keydown", function(){
+    if(currentSelection !== null){
+        console.log(currentSelection);
+    }
+    let paraDOM = document.getElementById(`bio${currentSelection.getAttribute("id")}`);
+   
+    people[currentSelection.getAttribute("id")].bio = textInputDOM.value;
+
+    paraDOM.textContent = people[currentSelection.getAttribute("id")].bio;
+    //    paraDOM.textContent = textInputDOM.value;
+
+    // console.log(document.getElementById(`bio$[`));
+});
 
 createPeopleDOM();
