@@ -8,9 +8,40 @@ let people = [
           birth: 1747,
           death: 1797
         }
+    },
+    {
+        title: "Samurai",
+        name: "Tomoe Gozen",
+        bio: "Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Tomoe-Gozen.jpg",
+        lifespan: {
+          birth: 1747,
+          death: 1797
+        }
+    },
+    {
+        title: "Samurai",
+        name: "Tomoe Gozen",
+        bio: "Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Tomoe-Gozen.jpg",
+        lifespan: {
+          birth: 1747,
+          death: 1797
+        }
+    },
+    {
+        title: "Samurai",
+        name: "Tomoe Gozen",
+        bio: "Serving under Minamoto Yoshinaka, Tomoe was one of his finest soldiers, and her skills in battle dwarfed many of those held by even the strongest men in her unit.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Tomoe-Gozen.jpg",
+        lifespan: {
+          birth: 1747,
+          death: 1797
+        }
     }
 ];
 
+let currentSelection = null;
 
 function createPerson(person){
     let output = document.getElementById("output");
@@ -69,6 +100,20 @@ function createPerson(person){
     personDOM.appendChild(footerDOM);
     output.appendChild(personDOM);
 
+
+    //When clicking on person, add border.
+    personDOM.addEventListener("click", function(){
+       resetBorder();
+        personDOM.setAttribute("style", "border: 1px dotted black;")
+    });
+
+}
+
+function resetBorder(){
+    let personTags = document.getElementsByTagName("person");
+    for(let i = 0; i < personTags.length; i ++){
+        personTags[i].removeAttribute("style");
+    }
 }
 
 function createPeopleDOM(){
