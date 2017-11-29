@@ -146,4 +146,13 @@ textInputDOM.addEventListener("keydown", function(){
     // console.log(document.getElementById(`bio$[`));
 });
 
+document.getElementById("text-input").addEventListener('keypress', function (e) {
+    if (e.keyCode === 13) {
+        let paraDOM = document.getElementById(`bio${currentSelection.getAttribute("id")}`);
+        textInputDOM.value = "";    
+        people[currentSelection.getAttribute("id")].bio = "";
+        paraDOM.textContent = people[currentSelection.getAttribute("id")].bio;
+    }
+}, false);
+
 createPeopleDOM();
